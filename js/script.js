@@ -45,6 +45,9 @@ function onPageLoaded() {
 	if (localStorage.getItem('todos')) {
 		list.innerHTML = localStorage.getItem('todos');
 	}
+	if (!!list.querySelector('li')) {
+		emptyList.classList.add('is-empty');
+	}
 	//<===================================================================>
 
 	//console.log(input);
@@ -120,6 +123,7 @@ function onPageLoaded() {
 			//addTask();
 		} else if (isClosest('.remove-all-tasks')) {
 			delAllTasks();
+			emptyList.classList.remove('is-empty');
 			toLocal();
 		}
 	});

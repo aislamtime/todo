@@ -207,7 +207,22 @@
 		width: 95%;
 	}
 	@media (max-width: 550px) {
-		flex-direction: column;
+		//flex-direction: column;
+		flex-wrap: wrap;
+		.remove-all-tasks {
+			order: 1;
+			flex-basis: 49%;
+		}
+		.add-task {
+			order: 2;
+			flex-basis: 49%;
+		}
+		.info {
+			order: 3;
+			width: 100%;
+		}
+
+		//!надо доделать ==============================
 		& input,
 		& div {
 			margin-bottom: 10px;
