@@ -123,7 +123,6 @@ function onPageLoaded() {
 			//addTask();
 		} else if (isClosest('.remove-all-tasks')) {
 			delAllTasks();
-			emptyList.classList.remove('is-empty');
 			toLocal();
 		}
 	});
@@ -180,6 +179,8 @@ function onPageLoaded() {
 		while (list.querySelector('li')) {
 			list.lastChild.remove();
 		}
+
+		emptyList.classList.add('is-empty');
 	}
 
 	function closePupop() {
