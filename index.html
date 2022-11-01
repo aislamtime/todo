@@ -22,17 +22,34 @@
 						<span class="complete-task complete"></span>
 					</li>
 				</ul>
-			</div>
-			<!-- ==================== TODO end ==================== -->
 
-			<!-- ==================== BUTTONS start ==================== -->
-			<div class="buttons form">
 				<input
 					type="text"
 					class="new-task-input"
 					placeholder="Новая задача.."
 				/>
-				<a class="add-task">Добавить задачу</a>
+
+				<span class="empty-input">Введите задачу!</span>
+
+				<div class="empty-info-wrap">
+					<div class="todo__empty-info empty-info">
+						Нет добавленных задач!
+						<!--<span class="empty-info__add-info"
+              >Для добавления задачи нажмите
+              <span class="empty-info__plus">+</span></span
+            >-->
+					</div>
+				</div>
+			</div>
+			<!-- ==================== TODO end ==================== -->
+
+			<!-- ==================== BUTTONS start ==================== -->
+			<div class="buttons">
+				<!--<div class="add-task__plus"></div>-->
+
+				<div class="info button">Инфо</div>
+				<div class="add-task button">Добавить</div>
+				<div class="remove-all-tasks button">Удалить все</div>
 			</div>
 			<!-- ==================== BUTTONS end ==================== -->
 		</main>

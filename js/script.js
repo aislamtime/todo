@@ -1,5 +1,6 @@
 function onPageLoaded() {
 	const todo = document.querySelector('.todo');
+	const buttons = document.querySelector('.buttons');
 	const add = document.querySelector('.add-task');
 	const trash = document.querySelector('.del-task');
 	const list = document.querySelector('.todo__list');
@@ -8,6 +9,26 @@ function onPageLoaded() {
 	const popup = document.querySelector('.pupop');
 	const story = list.getElementsByClassName('todo__item');
 	const input = document.querySelector('input');
+	function setFocus() {
+		input.focus();
+	}
+	function showInput() {
+		input.style.display = 'block';
+	}
+	function hideInput() {
+		input.style.display = 'none';
+	}
+	const emptyInput = document.querySelector('.empty-input');
+	function showEmptyInput() {
+		emptyInput.style.display = 'block';
+	}
+	function hideEmptyInput() {
+		emptyInput.style.display = 'none';
+	}
+	input.focus(() => (emptyInput.style.display = 'none'));
+	const emptyList = document.querySelector('.empty-info-wrap');
+
+	//console.log(emptyList);
 
 	//Сохранение изменении в localStorage ================================>
 	let todos;
@@ -15,7 +36,7 @@ function onPageLoaded() {
 	function toLocal() {
 		//Берем код HTML всего списка с тасками
 		todos = list.innerHTML;
-		console.log(todos);
+		//console.log(todos);
 		//Добавляем собранный код списка тасков в localStorage
 		localStorage.setItem('todos', todos);
 	}
@@ -35,6 +56,11 @@ function onPageLoaded() {
 	//console.log(popup);
 	//console.log(story);
 
+	//function isClosest(item) {
+	//	console.log(`${this.item}`);
+	//	return targetItem.closest(`${this.item}`);
+	//}
+
 	todo.addEventListener('click', function (e) {
 		let targetItem = e.target;
 		//console.log(targetItem.closest('.complete-task'));
@@ -45,11 +71,13 @@ function onPageLoaded() {
 		img.setAttribute('src', 'img/icon/complete.png');
 
 		if (targetItem.closest('.del-task')) {
+			//console.log(targetItem.closest('.del-task'));
 			targetItem.closest('.del-task').parentElement.remove();
 			toLocal();
 			if (story.length == 0) {
-				popup.style.display = 'block';
-				toLocal();
+				//Появление popup
+				//popup.style.display = 'block';
+				emptyList.classList.remove('is-empty');
 			}
 		} else if (targetItem.closest('.complete-task')) {
 			let imgTF = targetItem.closest('.complete-task').firstChild;
@@ -69,11 +97,48 @@ function onPageLoaded() {
 		}
 	});
 
+	//Нажатие на любую кнопку
+	buttons.addEventListener('click', function (e) {
+		function isClosest(item) {
+			//console.log(e.target.closest(item));
+			return e.target.closest(item);
+		}
+
+		if (isClosest('.add-task')) {
+			//console.log(e.target.closest('.add-task'));
+			if (input.style.display !== 'block') {
+				showInput();
+				setFocus();
+			} else if (input.value == '') {
+				showEmptyInput();
+			} else {
+				hideInput();
+				hideEmptyInput();
+				addTask();
+				toLocal();
+			}
+			//addTask();
+		} else if (isClosest('.remove-all-tasks')) {
+			delAllTasks();
+			toLocal();
+		}
+	});
+
+	//input.onfocus = hideEmptyInput();
+	//input.onblur = showEmptyInput();
+
 	input.addEventListener('keyup', (keyPressed) => {
 		const keyEnter = 'Enter';
 		if (keyPressed.code == keyEnter) {
-			addTask();
-			toLocal();
+			if (input.value != '') {
+				hideEmptyInput();
+				hideInput();
+				addTask();
+				toLocal();
+			} else {
+				input.blur();
+				showEmptyInput();
+			}
 		}
 	});
 
@@ -99,16 +164,25 @@ function onPageLoaded() {
 		list.appendChild(li);
 
 		input.value = '';
-		popup.style.display = 'none';
-		toLocal();
+		//Закрытие popup
+		//popup.style.display = 'none';
+		emptyList.classList.add('is-empty');
+	}
+
+	//Функция удаления всех тасков
+	function delAllTasks() {
+		//console.log(list);
+
+		while (list.querySelector('li')) {
+			list.lastChild.remove();
+		}
 	}
 
 	function closePupop() {
 		popup.style.display = 'none';
-		toLocal();
 	}
 
-	add.addEventListener('click', addTask);
+	//add.addEventListener('click', addTask);
 	//trash.addEventListener('click', delTask);
 	close.addEventListener('click', closePupop);
 }
