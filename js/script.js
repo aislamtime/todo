@@ -121,6 +121,8 @@ function onPageLoaded() {
 				toLocal();
 			}
 			//addTask();
+
+			//Удаление всех задачь
 		} else if (isClosest('.remove-all-tasks')) {
 			delAllTasks();
 			toLocal();
@@ -180,7 +182,7 @@ function onPageLoaded() {
 			list.lastChild.remove();
 		}
 
-		emptyList.classList.add('is-empty');
+		emptyList.classList.remove('is-empty');
 	}
 
 	function closePupop() {

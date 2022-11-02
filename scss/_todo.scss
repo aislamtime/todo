@@ -271,18 +271,21 @@
 .new-task-input {
 	display: none;
 	border-radius: 5px;
-	background-color: rgba(green, 0.2);
-	border: 2px solid rgba(#e1dd72, 0.5);
+	background-color: #38a677;
+	border: 2px solid rgba(#1b6535, 0.2);
 	padding: 0 20px;
 	flex: 1 1 auto;
 	margin-right: 10px;
 	color: white;
+	font-weight: 300;
 	font-size: 18px;
 	height: 52px;
 	width: 96%;
 	position: absolute;
 	bottom: 10px;
 	left: 2%;
+	z-index: 99;
+	overflow: none;
 	&::placeholder {
 		color: white;
 		opacity: 0.6;
@@ -301,6 +304,7 @@
 	position: absolute;
 	bottom: 20px;
 	right: 5%;
+	z-index: 100;
 }
 
 ::-webkit-scrollbar {
